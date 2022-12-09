@@ -10,7 +10,7 @@ export default function App() {
   const [page, setPage] = useState(1);
 
   const onSubmit = word => {
-    if (word === keyword) return;
+    if (word === keyword){ return;}
 
     setKeyword(word);
     setImages([]);

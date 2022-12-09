@@ -38,7 +38,9 @@ export default function ImageGallery({
         if (page * 16 >= r.total) {
           setShowLoadMore(false);
         }
-        setImages(images => [...images, ...r.hits]);
+        setImages(images => {
+          return [...images, ...r.hits];
+        });
       })
       .catch(console.log)
       .finally(() => setLoader(false));
