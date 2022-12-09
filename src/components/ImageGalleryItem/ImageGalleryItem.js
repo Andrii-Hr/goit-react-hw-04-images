@@ -1,57 +1,58 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import s from './ImageGalleryItem.module.css';
 import Modal from 'components/Modal/Modal';
 
-export default class ImageGalleryItem extends Component {
-  static propTypes = {
-    images: PropTypes.arrayOf(
-      PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        webformatURL: PropTypes.string.isRequired,
-        tags: PropTypes.string.isRequired,
-        largeImageURL: PropTypes.string.isRequired,
-      })
-    ),
-  };
+export default function ImageGalleryItem({ images }) {
+  const [modalOptions, setModalOptions] = useState({
+    show: false,
+    src: '',
+    alt: '',
+  });
 
-  state = { modalOptions: { show: false, src: '', alt: '' } };
-
-  showModal = e => {
-    this.setState({
-      modalOptions: {
-        show: true,
-        src: e.target.dataset.src,
-        alt: e.target.alt,
-      },
+  const showModal = e => {
+    setModalOptions({
+      show: true,
+      src: e.target.dataset.src,
+      alt: e.target.alt,
     });
   };
 
-  closeModal = () => {
-    this.setState({ modalOptions: { show: false, src: '', alt: '' } });
+  const closeModal = () => {
+    setModalOptions({ show: false, src: '', alt: '' });
   };
 
-  render() {
-    const {
-      modalOptions: { show, src, alt },
-    } = this.state;
-    const { images } = this.props;
-
-    return (
-      <>
-        {images.map(el => (
-          <li className={s.galleryItem} key={el.id}>
-            <img
-              onClick={this.showModal}
-              className={s.galleryItemImg}
-              src={el.webformatURL}
-              alt={el.tags}
-              data-src={el.largeImageURL}
-            />
-          </li>
-        ))}
-        {show && <Modal src={src} alt={alt} closeModal={this.closeModal} />}
-      </>
-    );
-  }
+  return (
+    <>
+      {images.map(el => (
+        <li className={s.galleryItem} key={el.id}>
+          <img
+            onClick={showModal}
+            className={s.galleryItemImg}
+            src={el.webformatURL}
+            alt={el.tags}
+            data-src={el.largeImageURL}
+          />
+        </li>
+      ))}
+      {modalOptions.show && (
+        <Modal
+          src={modalOptions.src}
+          alt={modalOptions.alt}
+          closeModal={closeModal}
+        />
+      )}
+    </>
+  );
 }
+
+ImageGalleryItem.propTypes = {
+  images: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      webformatURL: PropTypes.string.isRequired,
+      tags: PropTypes.string.isRequired,
+      largeImageURL: PropTypes.string.isRequired,
+    })
+  ),
+};

@@ -7,7 +7,7 @@ import React from 'react';
 function Loader() {
   return (
     <div className={s.loader}>
-      <HashLoader color="#fff"  size={125} />      
+      <HashLoader color="#fff" size={125} />
     </div>
   );
 }
