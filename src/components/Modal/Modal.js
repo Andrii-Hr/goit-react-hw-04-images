@@ -15,7 +15,9 @@ export default function Modal(src, alt, closeModal) {
     if (e.code === 'Escape') {
       closeModal();
     }
-  };
+  }; 
+
+  
 
   const handleBackdropClick = e => {
     if (e.target === e.currentTarget) {
