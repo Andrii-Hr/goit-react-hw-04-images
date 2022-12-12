@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { createPortal } from 'react-dom';
 import s from './Modal.module.css';
 
-export default function Modal(src, alt, closeModal) {
+export default function Modal({src, alt, closeModal}) {
   useEffect(() => {
     window.addEventListener('keydown', handleKeydown);
     return () => {
